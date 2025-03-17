@@ -3,22 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bhavi Kenia</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Optional: link to your CSS file -->
+    <title>Bhavi Kenia - Data Visualizations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #06285e;
+            --secondary-color: #7dd3fa;
+            --text-color: #333;
+            --background-color: #f8f9fa;
+            --card-background: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .assignment {
+            background-color: var(--card-background);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .assignment:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        li {
+            margin-bottom: 0.75rem;
+        }
+
+        a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 6px;
+            margin-top: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        img:hover {
+            transform: scale(1.05);
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Bhavi Kenia</h1>
-        <h2>A2:</h2>
-        <nav>
+        <h1>Bhavi Kenia - Data Visualizations</h1>
+    </header>
+    <main>
+        <div class="assignment">
+            <h2>Assignment 2</h2>
             <ul>
                 <li><a href="https://vizhub.com/bhavikenia/5f72085f9f0d4a969a4ff2788f2765e9">A2-Bar Graph</a></li>
                 <li><a href="https://vizhub.com/bhavikenia/f50f3cb95b8043ac9104f4ea0b1df680">A2-Dot Plot</a></li>
                 <li><a href="https://vizhub.com/bhavikenia/7a73248ec1764bb087618d06deeea0d4">A2-Heat Map</a></li>
             </ul>
-        </nav>
-        <h3>A3:</h3>
-        <nav>
+        </div>
+        <div class="assignment">
+            <h2>Assignment 3</h2>
             <ul>
                 <li><a href="https://vizhub.com/bhavikenia/826017137133425c9b10116d3a0175b6">A3-Histogram</a></li>
                 <img src="Seaborn/histogram.png" alt="Histogram Seaborn">
@@ -26,11 +125,10 @@
                 <img src="Seaborn/boxplot.png" alt="Box Plot Seaborn">
                 <li><a href="https://vizhub.com/bhavikenia/cdb2f31106c240638b0bfa066ad2223c">A3-Strip Plot</a></li>
                 <img src="Seaborn/stripplot.png" alt="Strip Plot Seaborn">
-
             </ul>
-        </nav>
-        <h2>A4:</h2>
-        <nav>
+        </div>
+        <div class="assignment">
+            <h2>Assignment 4</h2>
             <ul>
                 <li><a href="https://diamond-sheer-quicksand.glitch.me">A4-Bar Chart in D3</a></li>
                 <li><a href="https://glitch.com/edit/#!/diamond-sheer-quicksand">A4-Code for Bar Chart in D3</a></li>
@@ -40,45 +138,35 @@
                 <li><a href="https://glitch.com/edit/#!/agate-changeable-crocus">A4-Code for Heat Map in D3</a></li>
                 <li><a href="https://plausible-warm-polonium.glitch.me">A4-Histogram in D3</a></li>
                 <li><a href="https://glitch.com/edit/#!/plausible-warm-polonium">A4-Code for Histogram in D3</a></li>
-
-
             </ul>
-        <h2>A5:</h2>
-        <ul>
-            <li><a href="https://mesquite-righteous-harbor.glitch.me">A5-Bubble Chart in D3</a></li>
-            <li><a href="https://glitch.com/edit/#!/mesquite-righteous-harbor">A5-Code for Bubble Chart in D3</a></li>
-            <li><a href="https://trail-resisted-principle.glitch.me">A5-Line Chart in D3</a></li>
-            <li><a href="https://glitch.com/edit/#!/trail-resisted-principle">A5-Code for Line Chart in D3</a></li>
-            <li><a href="https://twisty-misty-mask.glitch.me">A5-Scatterplot Matrix in D3</a></li>
-            <li><a href="https://glitch.com/edit/#!/twisty-misty-mask">A5-Code for Scatterplot Matrix in D3</a></li>
-
-        </ul>
-        </nav>
-        <h2>A6:</h2>
-        <nav>
+        </div>
+        <div class="assignment">
+            <h2>Assignment 5</h2>
+            <ul>
+                <li><a href="https://mesquite-righteous-harbor.glitch.me">A5-Bubble Chart in D3</a></li>
+                <li><a href="https://glitch.com/edit/#!/mesquite-righteous-harbor">A5-Code for Bubble Chart in D3</a></li>
+                <li><a href="https://trail-resisted-principle.glitch.me">A5-Line Chart in D3</a></li>
+                <li><a href="https://glitch.com/edit/#!/trail-resisted-principle">A5-Code for Line Chart in D3</a></li>
+                <li><a href="https://twisty-misty-mask.glitch.me">A5-Scatterplot Matrix in D3</a></li>
+                <li><a href="https://glitch.com/edit/#!/twisty-misty-mask">A5-Code for Scatterplot Matrix in D3</a></li>
+            </ul>
+        </div>
+        <div class="assignment">
+            <h2>Assignment 6</h2>
             <ul>
                 <li><a href="https://vizhub.com/bhavikenia/760fba1fa7b8452a86a41dabe8153176">A6-Bar Chart in D3 with Sequential Color Scale</a></li>
                 <li><a href="https://vizhub.com/bhavikenia/bb8681ac3b16490180cb4314f3490c30">A6-Bar Chart in D3 with Diverging Color Scale</a></li>
                 <li><a href="https://vizhub.com/bhavikenia/0629d87b4bd047288f2d4f53e3073475">A6-Scatter Plot in D3 with Qualitative Color Scale</a></li>
-
             </ul>
-        </nav>
-        <h2>A7:</h2>
-        <nav>
+        </div>
+        <div class="assignment">
+            <h2>Assignment 7</h2>
             <ul>
                 <li><a href="https://vizhub.com/bhavikenia/3b52fda2c4034caab3c481ee94e651be">A7-Multi-Line Chart in D3</a></li>
                 <li><a href="https://vizhub.com/bhavikenia/96061d64653e423c903ee21c7012fa0a">A7-Heat Map in D3</a></li>
                 <li><a href="https://vizhub.com/bhavikenia/ea435479cad44be9a14ac30eee5d52fc">A7-Small Multiples Chart in D3</a></li>
-
             </ul>
-        </nav>
-    </header>
-    
-    <main>
-        <section id="home">
-            
-        </section>
-
+        </div>
     </main>
 </body>
 </html>
