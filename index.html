@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bhavi Kenia - Data Visualizations</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/d3-svg-annotation@2.5.1/d3-annotation.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -182,6 +184,157 @@
                 <li><a href="https://vizhub.com/bhavikenia/f5de971660744b88a2254bad3d212da4">A9-Proportional Symbols Map in D3</a></li>
                 <li><a href="https://vizhub.com/bhavikenia/e7242ba667d949c1a7d9c5d93b9d5031">A9-World Choropleth Map in D3</a></li>
             </ul>
+        </div>
+        <div class="different">
+            <h2>Assignment 10</h2>
+            <!-- Chart Title for Misleading Crime Index -->
+            <div class="chart-title"><strong>Misleading Crime Index Chart (Black Hat)</strong></div>
+            <svg class="misleading" width="900" height="500"></svg>
+            <!-- Explanation of why the misleading chart is misleading -->
+            <p><strong>Why it's misleading:</strong> The y-axis does not start at zero, which exaggerates the small differences in the crime index. Also, the bars are sorted in descending order, making the differences look more extreme than they are. Alternating colors are used, which can imply that groupings or categories that exist.</p>
+ 
+            <!-- Chart Title for Accurate Crime Index -->
+            <div class="chart-title"><strong>Accurate Crime Index Chart (White Hat)</strong></div>
+            <svg class="accurate" width="900" height="500"></svg>
+            <!-- Explanation of why the accurate chart is better -->
+            <p><strong>Why it's better:</strong> This chart starts the y-axis at zero and maintains consistent scaling, giving a truthful visual impression of the data. It also preserves the original order of countries.</p>
+            <p><strong>Data Source:</strong> The crime rate data is sourced from <a href="https://worldpopulationreview.com/country-rankings/crime-rate-by-country" target="_blank">World Population Review</a>.</p>
+
+            <script>
+                // Loads the CSV data using D3.js
+                d3.csv("https://gist.githubusercontent.com/bhavikenia/2ed237f0436aff9fb1592d0b43b7d850/raw/c76284bd60d8d5490ef4235e685b34f310b56d3b/crime.csv").then(function(data) {
+                    data.forEach(function(d) {
+                        // Convert string values to numbers for crimeindex and safetyindex
+                        d.crimeindex = +d.crimeindex;
+                        d.safetyindex = +d.safetyindex;
+                    });
+
+                    // Creates a copy of the data and sort it by crime index for the misleading chart
+                    // Searched how to do this part online
+                    var misleadingData = data.slice().sort(function(a, b) {
+                        return b.crimeindex - a.crimeindex;
+                    });
+
+                    // Draws both misleading and accurate charts
+                    drawChart(misleadingData, "svg.misleading", false);
+                    drawChart(data, "svg.accurate", true);
+
+                    // Function to draw the chart
+                    function drawChart(data, selector, accurate) {
+                        // Selects the SVG element where the chart will be drawn
+                        var svg = d3.select(selector);
+                        // Sets margins and chart size
+                        var margin = { 
+                            top: 20, 
+                            right: 20, 
+                            bottom: 160, 
+                            left: 90 
+                        };
+                        var width = +svg.attr("width") - margin.left - margin.right;
+                        var height = +svg.attr("height") - margin.top - margin.bottom;
+
+                        var g = svg.append("g")
+                            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+                        // Creates a scale for the x-axis which are the country names
+                        var x = d3.scaleBand()
+                            .domain(data.map(function(d) { 
+                                return d.country; 
+                            }))
+                            .range([0, width])
+                            .padding(0.2);
+                        // Creates a scale for the y-axis which is the crime index
+                        // Looked online on how to do this part
+                        var y = d3.scaleLinear()
+                            .domain([
+                            accurate ? 0 : d3.min(data, function(d) { 
+                                return d.crimeindex; 
+                            }) - 5,
+                            d3.max(data, function(d) { 
+                                return d.crimeindex; 
+                            })
+                            ])
+                            .range([height, 0]);
+
+                        // Draws the x-axis at the bottom of the chart
+                        g.append("g")
+                        .attr("transform", "translate(0," + height + ")")
+                        .call(d3.axisBottom(x))
+                        .selectAll("text")
+                            .attr("transform", "rotate(-45)")
+                            .style("text-anchor", "end");
+                        
+                        // Draws the y-axis
+                        g.append("g")
+                        .call(d3.axisLeft(y));
+
+                        // Draws the bars for the chart
+                        // Looked online on how to do this part
+                        g.selectAll(".bar")
+                        .data(data)
+                        .enter().append("rect")
+                            .attr("class", "bar")
+                            .attr("x", function(d) { 
+                                return x(d.country); 
+                            })
+                            .attr("y", function(d) { 
+                                return y(d.crimeindex); 
+                            })
+                            // Sets the bar width based on x-scale
+                            .attr("width", x.bandwidth())
+                            .attr("height", function(d) { 
+                                return height - y(d.crimeindex); 
+                            })
+                            .attr("fill", function(d, i) {
+                            // Sets different colors for the misleading and accurate charts
+                            // Looked online on how to do this part
+                            if (selector.indexOf("misleading") !== -1) {
+                                // Alternating colors for misleading chart
+                                return (i % 2 === 0) ? "yellow" : "lightgreen";
+                            } else {
+                                // Color for the accurate chart
+                                return "pink";
+                            }
+                        });
+
+                        // If it's the accurate chart then add an annotation for the USA
+                        // Looked on the website that Professor gave us
+                        if (accurate) {
+                            var usa = data.find(function(d) {
+                                // Finds the United States data
+                                return d.country.indexOf("United States") !== -1;
+                            });
+
+                            if (usa) {
+                                // Gets the x position for USA
+                                var xPos = x(usa.country) + x.bandwidth() / 2;
+                                // Gets the y position for the crime index of the USA
+                                var yPos = y(usa.crimeindex);
+
+                                // Defines the annotation details
+                                var annotations = [{
+                                    note: {
+                                    label: "USA has a mid-level crime index.",
+                                    title: "USA (Crime Index: " + usa.crimeindex + ")"
+                                    },
+                                    x: xPos,
+                                    y: yPos,
+                                    dx: -30,
+                                    dy: -50
+                                }];
+
+                                // Creates the annotation group and append it to the chart
+                                var makeAnnotations = d3.annotation()
+                                    .annotations(annotations);
+
+                                g.append("g")
+                                .attr("class", "annotation-group")
+                                .call(makeAnnotations);
+                            }
+                        }
+                    }
+                });
+            </script>
         </div>
     </main>
 </body>
